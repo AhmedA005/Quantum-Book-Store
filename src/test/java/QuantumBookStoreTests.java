@@ -38,6 +38,7 @@ public class QuantumBookStoreTests {
         PaperBook oldBook1 = new PaperBook("210", "C Programming", 2009, 15.0, 2);
         PaperBook oldBook2 = new PaperBook("471", "Fortran Programming", 2003, 10.0, 1);
         store.addBook(oldBook1);
+        store.addBook(oldBook2);
 
         List<Book> removedBooks = store.removeOutdatedBooks(10);
 
@@ -48,5 +49,47 @@ public class QuantumBookStoreTests {
         // Assert that the oldbook is not in the inventory anymore
         assertThrows(RuntimeException.class, () ->
                 store.buyBook("old123", 1, "test@email.com", "123 Main St"));
+    }
+    @Test
+    void testBuyPaperBook(){
+        store.addBook(paperBook);
+        double totalPrice = store.buyBook("123", 2, "ahmed.ahmedmostafa.h@gmail.com", "Cairo");
+        assertEquals(100.0, totalPrice);
+
+        // Verify stock is reduced (original 10 - 2 = 8)
+        // We can test this by trying to buy 9 books (should fail)
+        assertThrows(RuntimeException.class, () ->
+                store.buyBook("123", 9, "ahmed.ahmedmostafa.h@gmail.com", "Cairo"));
+    }
+
+    @Test
+    void testBuyEBook() {
+        store.addBook(eBook);
+
+        double amount = store.buyBook("456", 3, "ahmed.ahmedmostafa.h@gmail.com", "Cairo");
+
+        assertEquals(90.0, amount);
+
+        // Should be able to buy again (no stock limit for ebooks)
+        assertDoesNotThrow(() ->
+                store.buyBook("456", 3, "ahmed.ahmedmostafa.h@gmail.com", "Cairo"));
+    }
+
+    @Test
+    void testBuyShowcaseBook() {
+        store.addBook(demoBook);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                store.buyBook("789", 1, "ahmed.ahmedmostafa.h@gmail.com", "Cairo"));
+
+        assertTrue(exception.getMessage().contains("Showcase/Demo books are not for sale"));
+    }
+
+    @Test
+    void testBuyNonexistentBook() {
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                store.buyBook("999", 1, "ahmed@email.com", "Cairo"));
+
+        assertTrue(exception.getMessage().contains("Book with ISBN 999 not found"));
     }
 }

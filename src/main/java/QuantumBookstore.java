@@ -46,14 +46,14 @@ public class QuantumBookstore {
             }
         }
 
-        System.out.println("Quantum book store: Removed " + outdatedBooks.size() + " outdated books");
+        System.out.println("Removed " + outdatedBooks.size() + " outdated books");
         return outdatedBooks;
     }
 
     public double buyBook(String isbn, int quantity, String email, String address) {
         Book book = inventory.get(isbn);
         if (book == null) {
-            throw new RuntimeException("Quantum book store: Book with ISBN " + isbn + " not found");
+            throw new RuntimeException("Book with ISBN " + isbn + " not found");
         }
 
         String bookType = book.getClass().getSimpleName();
