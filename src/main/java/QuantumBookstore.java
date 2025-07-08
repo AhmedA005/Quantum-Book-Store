@@ -18,7 +18,6 @@ public class QuantumBookstore {
         inventory = new HashMap<>();
         bookStrategies = new HashMap<>();
 
-        // Initialize services
         IShippingService shippingService = new ShippingService();
         IMailService mailService = new MailService();
 
