@@ -1,4 +1,4 @@
-package services;
+package services.PurchaseStrategies;
 
 import interfaces.IPurchaseStrategy;
 import interfaces.IMailService;
