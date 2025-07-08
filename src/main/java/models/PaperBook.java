@@ -6,4 +6,11 @@ public class PaperBook extends Book {
         super(ISBN, title, publishYear, price);
         this.quantity = quantity;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

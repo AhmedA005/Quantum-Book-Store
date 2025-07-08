@@ -12,4 +12,20 @@ public abstract class Book {
         this.publishYear = publishYear;
         this.price = price;
     }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getPublishYear() {
+        return publishYear;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }
