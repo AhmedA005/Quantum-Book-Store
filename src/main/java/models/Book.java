@@ -28,4 +28,8 @@ public abstract class Book {
     public double getPrice() {
         return price;
     }
+
+    public boolean isOutdated(int years) {
+        return (2025 - publishYear) > years;
+    }
 }
