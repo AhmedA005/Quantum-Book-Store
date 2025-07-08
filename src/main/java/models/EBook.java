@@ -7,4 +7,8 @@ public class EBook extends Book {
         super(ISBN, title, publishYear, price);
         this.fileType = fileType;
     }
+
+    public String getFileType() {
+        return fileType;
+    }
 }

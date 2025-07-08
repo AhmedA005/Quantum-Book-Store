@@ -1,10 +1,16 @@
 package services;
 
 import interfaces.IPurchaseStrategy;
+import interfaces.IShippingService;
 import models.Book;
 import models.PaperBook;
 
 public class ShippingPurchaseStrategy implements IPurchaseStrategy {
+    private IShippingService shippingService;
+
+    public ShippingPurchaseStrategy(IShippingService shippingService) {
+        this.shippingService = shippingService;
+    }
     @Override
     public double executePurchase(Book book, String address, String email, int quantity) {
         if (((PaperBook) book).getQuantity() < quantity) {
@@ -12,6 +18,8 @@ public class ShippingPurchaseStrategy implements IPurchaseStrategy {
         }
         int currentQuantity = ((PaperBook) book).getQuantity();
         ((PaperBook) book).setQuantity(currentQuantity - quantity);
+
+        shippingService.ship(address, quantity);
         return quantity * book.getPrice();
     }
 }
